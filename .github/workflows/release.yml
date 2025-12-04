@@ -504,6 +504,9 @@ jobs:
       - name: Package server
         run: release/package_server.sh
 
+      - name: Prepare server jar
+        run: cp release/output/scrcpy-server-${{ env.VERSION }} release/output/scrcpy-server-${{ env.VERSION }}.jar
+
       - name: Generate checksums
         run: release/generate_checksums.sh
 
