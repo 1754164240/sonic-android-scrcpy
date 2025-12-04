@@ -45,11 +45,16 @@ jobs:
       - name: Build
         run: release/build_server.sh
 
+      - name: Prepare server jar
+        run: cp release/work/build-server/server/scrcpy-server release/work/build-server/server/scrcpy-server.jar
+
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: scrcpy-server
-          path: release/work/build-server/server/scrcpy-server
+          path: |
+            release/work/build-server/server/scrcpy-server
+            release/work/build-server/server/scrcpy-server.jar
 
   test-build-scrcpy-server-without-gradle:
     runs-on: ubuntu-latest
@@ -503,9 +508,6 @@ jobs:
 
       - name: Package server
         run: release/package_server.sh
-
-      - name: Prepare server jar
-        run: cp release/output/scrcpy-server-${{ env.VERSION }} release/output/scrcpy-server-${{ env.VERSION }}.jar
 
       - name: Generate checksums
         run: release/generate_checksums.sh
